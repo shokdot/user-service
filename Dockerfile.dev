@@ -1,0 +1,25 @@
+FROM node:20
+
+WORKDIR /app
+
+COPY apps/core/package*.json ./apps/core/
+COPY apps/user-service/package*.json ./apps/user-service/
+
+WORKDIR /app/apps/core
+RUN npm install
+
+WORKDIR /app/apps/user-service
+RUN npm install
+
+COPY apps/user-service/prisma ./prisma
+RUN npx prisma generate
+
+WORKDIR /app
+COPY apps/core ./apps/core
+COPY apps/user-service ./apps/user-service
+
+WORKDIR /app/apps/user-service
+
+EXPOSE 3002
+
+CMD [ "npm", "run", "dev" ]
