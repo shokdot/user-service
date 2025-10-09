@@ -1,14 +1,15 @@
 import { FastifyReply } from "fastify";
+import { searchUsernameDTO } from "src/dto/search-username.dto.js";
 import { AuthRequest } from '@core/types/authRequest.js';
 import { searchUser } from '@services/basic/index.js';
 import sendError from "@core/utils/sendError.js";
 
-const searchUserHandler = async (request: AuthRequest, reply: FastifyReply) => {
+const searchUserHandler = async (request: AuthRequest<undefined, searchUsernameDTO>, reply: FastifyReply) => {
 	try {
-		const { userId } = request.params as { userId: string }; // fix this 
-		const { query } = request.query as { query: string }; // fix this
+		const { userId } = request;
+		const { username } = request.query;
 
-		const data = await searchUser(userId, query);
+		const data = await searchUser(userId, username);
 
 		reply.status(200).send({
 			status: 'success',

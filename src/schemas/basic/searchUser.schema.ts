@@ -24,13 +24,25 @@ const searchUserSchema: RouteShorthandOptions = {
 					status: { type: 'string', enum: ['success'] },
 					data: {
 						type: 'object',
-						required: ['userId', 'username', 'avatarUrl', 'status'],
+						required: ['query', 'count', 'results'],
 						additionalProperties: false,
 						properties: {
-							userId: { type: 'string', format: 'uuid' },
-							username: { type: 'string' },
-							avatarUrl: { type: 'string' },
-							status: { type: 'string' }
+							query: { type: 'string' },
+							count: { type: 'number' },
+							results: {
+								type: 'array',
+								items: {
+									type: "object",
+									additionalProperties: false,
+									properties: {
+										userId: { type: 'string', format: 'uuid' },
+										username: { type: 'string' },
+										avatarUrl: { type: 'string' },
+										status: { type: 'string' }
+									}
+								}
+							},
+
 						}
 
 					},
