@@ -10,8 +10,6 @@ const getUserById = async (userId: string) => {
 			userId: true,
 			username: true,
 			avatarUrl: true,
-			// preferences: true,
-			// metadata: true,
 			createdAt: true,
 			updatedAt: true
 		}

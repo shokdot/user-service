@@ -1,11 +1,12 @@
 import { FastifyReply } from "fastify";
 import { AuthRequest } from '@core/types/authRequest.js';
 import { getUserStatus } from '@services/basic/index.js';
+import { userByIdDTO } from "src/dto/user-by-id.dto.js";
 import sendError from "@core/utils/sendError.js";
 
-const getUserStatusHandler = async (request: AuthRequest, reply: FastifyReply) => {
+const getUserStatusHandler = async (request: AuthRequest<undefined, undefined, userByIdDTO>, reply: FastifyReply) => {
 	try {
-		const { userId } = request.params as { userId: string }; // fix this
+		const { userId } = request.params;
 
 		const data = await getUserStatus(userId);
 

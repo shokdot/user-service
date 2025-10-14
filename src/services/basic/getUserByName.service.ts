@@ -1,7 +1,7 @@
 import prisma from "src/utils/prismaClient.js";
 import { AppError } from "@core/utils/AppError.js";
 
-const getUserByName = async (userId: string, username: string) => {
+const getUserByName = async (username: string) => {
 	const user = await prisma.userProfile.findUnique({
 		where: { username },
 		select: {

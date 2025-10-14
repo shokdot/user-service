@@ -11,6 +11,4 @@ export default async function userRoutes(app: FastifyInstance): Promise<void> {
 	app.register(avatarRoutes, { prefix: '/me/avatar' });
 	app.register(friendsRoutes, { prefix: '/me/friends' });
 	app.register(blockedRoutes, { prefix: "/me/blocked" });
-	// settings
-	// Optional: last active timestamp (/:userId/last-active)
 }

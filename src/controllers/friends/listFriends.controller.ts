@@ -13,7 +13,7 @@ const listFriendsHandler = async (requst: AuthRequest<undefined, { status?: stri
 		return reply.status(200).send({
 			status: 'success',
 			data,
-			message: 'Users found successfully' // change
+			message: data.count > 0 ? 'Friends list retrieved successfully.' : 'No friends yet.'
 		});
 
 	} catch (error) {
