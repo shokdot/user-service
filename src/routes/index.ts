@@ -6,9 +6,9 @@ import friendsRoutes from "./friends.routes.js";
 import blockedRoutes from "./blocked.routes.js";
 
 export default async function userRoutes(app: FastifyInstance): Promise<void> {
-	app.register(basicRoutes, { prefix: '/' });
+	app.register(basicRoutes);
+	app.register(blockedRoutes);
 	app.register(meRoutes, { prefix: '/me' });
 	app.register(avatarRoutes, { prefix: '/me/avatar' });
 	app.register(friendsRoutes, { prefix: '/me/friends' });
-	app.register(blockedRoutes, { prefix: "/me/blocked" });
 }

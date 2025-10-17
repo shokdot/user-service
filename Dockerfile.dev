@@ -28,4 +28,4 @@ WORKDIR /apps/user-service
 
 EXPOSE 3001
 
-CMD [ "npm", "run", "dev" ]
+CMD ["sh", "-c", "npx prisma migrate deploy && npm run dev"]

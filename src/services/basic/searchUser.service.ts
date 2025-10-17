@@ -1,15 +1,24 @@
 import prisma from "src/utils/prismaClient.js";
 
 const searchUser = async (userId: string, query: string) => {
-
-	// if (blcoked delete users)
-
 	const users = await prisma.userProfile.findMany({
 		where: {
 			username: {
 				contains: query.toLowerCase(),
 			},
-			NOT: { userId },
+			NOT: {
+				userId,
+			},
+			blocks: {
+				none: {
+					blockedId: userId
+				}
+			},
+			blockedBy: {
+				none: {
+					blockerId: userId
+				}
+			}
 		},
 		select: {
 			userId: true,
@@ -18,7 +27,6 @@ const searchUser = async (userId: string, query: string) => {
 			status: true,
 		},
 	});
-
 
 	return {
 		query,

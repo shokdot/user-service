@@ -27,7 +27,7 @@ model Friendship {
     senderUserId   String
     receiver       UserProfile @relation("receivedRequests", fields: [receiverUserId], references: [userId])
     receiverUserId String
-    status         String      @default("pending") // 'pending', 'accepted', 'rejected'
+    status         String      @default("pending")
     createdAt      DateTime    @default(now())
     updatedAt      DateTime    @updatedAt
 
@@ -35,12 +35,12 @@ model Friendship {
 }
 
 model Block {
-    id           String      @id @default(uuid())
-    userId       String // who blocked
-    targetUserId String // who got blocked
-    createdAt    DateTime    @default(now())
-    user         UserProfile @relation("blocks", fields: [userId], references: [userId])
-    targetUser   UserProfile @relation("blockedBy", fields: [targetUserId], references: [userId])
+    id        String      @id @default(uuid())
+    blocker   UserProfile @relation("blocks", fields: [blockerId], references: [userId])
+    blockerId String
+    blocked   UserProfile @relation("blockedBy", fields: [blockedId], references: [userId])
+    blockedId String
+    createdAt DateTime    @default(now())
 
-    @@unique([userId, targetUserId])
+    @@unique([blockerId, blockedId])
 }

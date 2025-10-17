@@ -4,7 +4,6 @@ import { sendRequest } from "@services/friends/index.js"
 import { AuthRequest } from "@core/types/authRequest.js";
 import { sendError } from "@core/index.js";
 
-
 const sendRequestHandler = async (request: AuthRequest<undefined, undefined, sendRequestDTO>, reply: FastifyReply) => {
 	try {
 		const { userId } = request;
@@ -19,15 +18,17 @@ const sendRequestHandler = async (request: AuthRequest<undefined, undefined, sen
 
 	} catch (error) {
 		switch (error.code) {
-			case 'USER_NOT_FOUND':
-				return sendError(reply, 404, error.code, 'The requested user does not exist.');
 			case 'CANT_SEND_YOURSELF':
 				return sendError(reply, 400, error.code, 'You cannot send a request to yourself.');
+			case 'USERS_BLOCKED':
+				return sendError(reply, 403, error.code, 'Cannot send friend request. Users are blocked.');
+			case 'USER_NOT_FOUND':
+				return sendError(reply, 404, error.code, 'The requested user does not exist.');
 			case 'ALREADY_SENT':
 				return sendError(reply, 409, error.code, 'A request already exists between these users.');
 
 			default:
-				return sendError(reply, 400, error.code, 'Bad request.');
+				return sendError(reply, 500, 'INTERNAL_SERVER_ERROR', 'Internal server error');
 		}
 	}
 };

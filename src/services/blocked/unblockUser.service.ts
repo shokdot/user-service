@@ -1,15 +1,27 @@
 import prisma from 'src/utils/prismaClient.js'
 import { AppError } from '@core/utils/AppError.js';
 
-const unblockUser = async (userId: string, targetUserId: string) => {
-	const existingBlock = await prisma.block.findUnique({
-		where: { userId_targetUserId: { userId, targetUserId } },
+const unblockUser = async (userId: string, targetUsername: string) => {
+
+	const target = await prisma.userProfile.findFirst({ where: { username: targetUsername } });
+	if (!target) throw new AppError('BLOCK_NOT_FOUND');
+
+	const existing = await prisma.block.findUnique({
+		where: {
+			blockerId_blockedId: {
+				blockerId: userId,
+				blockedId: target.userId,
+			},
+		},
 	});
 
-	if (!existingBlock) throw new AppError('BLOCK_NOT_FOUND')
+	if (!existing) throw new AppError('BLOCK_NOT_FOUND');
+
 
 	await prisma.block.delete({
-		where: { userId_targetUserId: { userId, targetUserId } },
+		where: {
+			id: existing.id,
+		},
 	});
 }
 
