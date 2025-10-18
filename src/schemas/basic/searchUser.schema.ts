@@ -7,7 +7,7 @@ const searchUserSchema: RouteShorthandOptions = {
 	schema:
 	{
 		description: "Search user by username.",
-		tags: ["user"],
+		tags: ["User"],
 		querystring: {
 			type: 'object',
 			required: ['username'],
@@ -18,14 +18,14 @@ const searchUserSchema: RouteShorthandOptions = {
 		response: {
 			200: {
 				type: 'object',
-				required: ['status', 'data', 'message'],
-				additionalProperties: false,
+				// required: ['status', 'data', 'message'],
+				additionalProperties: true,
 				properties: {
 					status: { type: 'string', enum: ['success'] },
 					data: {
 						type: 'object',
-						required: ['userId', 'username', 'avatarUrl', 'status'],
-						additionalProperties: false,
+						// required: ['userId', 'username', 'avatarUrl', 'status'],
+						additionalProperties: true,
 						properties: {
 							userId: { type: 'string', format: 'uuid' },
 							username: { type: 'string' },

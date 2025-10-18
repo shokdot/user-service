@@ -8,7 +8,7 @@ const deleteUserSchema: RouteShorthandOptions = {
 	schema:
 	{
 		description: "Delete current user",
-		tags: ["auth"],
+		tags: ["User"],
 		response: {
 			200: {
 				type: 'object',

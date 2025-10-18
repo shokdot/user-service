@@ -9,9 +9,9 @@ import {
 } from '@controllers/basic/index.js'
 
 const basicRoutes = async (app: FastifyInstance) => {
-	app.post('/', basic.createUser, createUserHandler);
+	app.post('', basic.createUser, createUserHandler);
 	app.get('/:userId', basic.getUserById, getUserByIdHandler);
-	app.get('/:userId/status', basic.getUserStatus, getUserStatusHandler);
+	app.get('/status/:userId', basic.getUserStatus, getUserStatusHandler); // check it // change it if need it
 	app.get('/username/:username', basic.getUserByName, getUserByNameHandler);
 	app.get('/search', basic.searchUser, searchUserHandler);
 }

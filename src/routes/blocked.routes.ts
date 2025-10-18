@@ -1,4 +1,3 @@
-import authenticate from "@core/middlewares/authenticate.middleware.js";
 import { FastifyInstance } from "fastify";
 import {
 	getBlockedHandler,
@@ -6,14 +5,13 @@ import {
 	unblockUserHandler,
 	checkBlockHandler
 } from '@controllers/blocked/index.js'
-import serviceAuth from "@core/middlewares/serviceAuth.middleware.js";
-// import { blocked } from "src/schemas/index.js"; // we’ll define schemas after
+import { blocked } from "src/schemas/index.js";
 
 const blockedRoutes = async (app: FastifyInstance) => {
-	app.get("/blocks", { preHandler: authenticate }, getBlockedHandler);
-	app.post("/block", { preHandler: authenticate }, blockUserHandler);
-	app.post("/unblock", { preHandler: authenticate }, unblockUserHandler);
-	app.get("/blocks/check", { preHandler: serviceAuth }, checkBlockHandler);
+	app.get("/blocks", blocked.getBlockedUsers, getBlockedHandler);
+	app.post("/block", blocked.blockUser, blockUserHandler);
+	app.post("/unblock", blocked.unblockUser, unblockUserHandler);
+	app.get("/blocks/check", blocked.checkBlock, checkBlockHandler);
 };
 
 export default blockedRoutes;

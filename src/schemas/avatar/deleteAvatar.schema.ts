@@ -7,7 +7,7 @@ const deleteAvatarSchema: RouteShorthandOptions = {
 	schema:
 	{
 		description: "Delete avatar",
-		tags: ["user"],
+		tags: ["Avatar"],
 		response: {
 			200: {
 				type: 'object',

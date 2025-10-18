@@ -1,14 +1,23 @@
-import { RouteShorthandOptions } from "fastify";
-import authenticate from '@core/middlewares/authenticate.middleware.js'
+import authenticate from "@core/middlewares/authenticate.middleware.js";
 import { errorResponseSchema } from "@core/schemas/error.schema.js";
+import { RouteShorthandOptions } from "fastify";
 
-const updateAvatarSchema: RouteShorthandOptions = {
+const deleteRequestSchema: RouteShorthandOptions = {
 	preHandler: [authenticate],
 	schema:
 	{
-		description: "Update avatar",
-		tags: ["Avatar"],
-		response: {
+		description: "Delete accepted or pending friend request.",
+		tags: ["Friends"],
+		params: {
+			type: 'object',
+			required: ['username'],
+			additionalProperties: false,
+			properties: {
+				username: { type: 'string', }
+			}
+		},
+		response:
+		{
 			200: {
 				type: 'object',
 				required: ['status', 'message'],
@@ -23,8 +32,9 @@ const updateAvatarSchema: RouteShorthandOptions = {
 			403: errorResponseSchema,
 			404: errorResponseSchema,
 			500: errorResponseSchema
-		},
-	}
-};
+		}
 
-export default updateAvatarSchema;
+	}
+}
+
+export default deleteRequestSchema;

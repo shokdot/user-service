@@ -11,7 +11,10 @@ const checkBlockHandler = async (request: FastifyRequest<{ Querystring: checkBlo
 
 		return reply.status(200).send({
 			status: "success",
-			data
+			data,
+			message: data
+				? "One of the users has blocked the other"
+				: "No block relationship found between users"
 		});
 
 	} catch (error: any) {

@@ -7,7 +7,7 @@ const updateUserSchema: RouteShorthandOptions = {
 	schema:
 	{
 		description: "Update current user information (username, avatarUrl, preferences, metadata)",
-		tags: ["user"],
+		tags: ["User"],
 		body: {
 			type: "object",
 			properties: {
