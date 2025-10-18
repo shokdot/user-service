@@ -9,6 +9,7 @@ const deleteUserSchema: RouteShorthandOptions = {
 	{
 		description: "Delete current user",
 		tags: ["User"],
+		security: [{ serviceToken: [] }, { bearerAuth: [] }],
 		response: {
 			200: {
 				type: 'object',

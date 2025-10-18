@@ -8,6 +8,7 @@ const listFriendsSchema: RouteShorthandOptions = {
 	{
 		description: "Delete accepted or pending friend request.",
 		tags: ["Friends"],
+		security: [{ bearerAuth: [] }],
 		querystring: {
 			type: 'object',
 			additionalProperties: false,

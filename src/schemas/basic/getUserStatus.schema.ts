@@ -8,6 +8,7 @@ const getUserStatusSchema: RouteShorthandOptions = {
 	{
 		description: "Get user status by userId",
 		tags: ["Status"],
+		security: [{ bearerAuth: [] }],
 		params: {
 			type: "object",
 			required: ["userId"],

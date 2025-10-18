@@ -8,6 +8,7 @@ const acceptRequestSchema: RouteShorthandOptions = {
 	{
 		description: "Accept incoming friend request.",
 		tags: ["Friends"],
+		security: [{ bearerAuth: [] }],
 		params: {
 			type: 'object',
 			required: ['username'],

@@ -8,6 +8,7 @@ const getBlockedSchema: RouteShorthandOptions = {
 	{
 		description: "Get blocked users list",
 		tags: ["Block"],
+		security: [{ bearerAuth: [] }],
 		response:
 		{
 			200: {

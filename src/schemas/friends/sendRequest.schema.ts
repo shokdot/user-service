@@ -8,6 +8,7 @@ const sendRequestSchema: RouteShorthandOptions = {
 	{
 		description: "Send friend request.",
 		tags: ["Friends"],
+		security: [{ bearerAuth: [] }],
 		params: {
 			type: 'object',
 			required: ['username'],

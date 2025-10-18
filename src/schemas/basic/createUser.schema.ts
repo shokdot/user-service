@@ -8,6 +8,7 @@ const createUserSchema: RouteShorthandOptions = {
 	{
 		description: "Create user. Calls from auth-service dont call it manually use auth-service register instead",
 		tags: ["User"],
+		security: [{ serviceToken: [] }],
 		body: {
 			type: 'object',
 			required: ['userId', 'username'],

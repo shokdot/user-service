@@ -8,6 +8,7 @@ const blockUserSchema: RouteShorthandOptions = {
 	{
 		description: "Block user with username",
 		tags: ["Block"],
+		security: [{ bearerAuth: [] }],
 		body:
 		{
 			type: 'object',

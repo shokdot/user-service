@@ -8,6 +8,7 @@ const checkBlockSchema: RouteShorthandOptions = {
 	{
 		description: "Block user with username",
 		tags: ["Block"],
+		security: [{ serviceToken: [] }],
 		querystring: {
 			type: 'object',
 			required: ['userA', 'userB'],

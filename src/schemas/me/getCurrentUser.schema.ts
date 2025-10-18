@@ -8,6 +8,7 @@ const getCurrentUserSchema: RouteShorthandOptions = {
 	{
 		description: "Get current user public information.",
 		tags: ["User"],
+		security: [{ bearerAuth: [] }],
 		response: {
 			200: {
 				type: 'object',

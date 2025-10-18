@@ -8,6 +8,7 @@ const updateUserStatusSchema: RouteShorthandOptions = {
 	{
 		description: "Update current user status (ONLINE, OFFLINE, IN_GAME)",
 		tags: ["Status"],
+		security: [{ bearerAuth: [] }],
 		body: {
 			type: "object",
 			required: ['status'],

@@ -8,6 +8,7 @@ const unblockUserSchema: RouteShorthandOptions = {
 	{
 		description: "Unblock user with username",
 		tags: ["Block"],
+		security: [{ bearerAuth: [] }],
 		body:
 		{
 			type: 'object',

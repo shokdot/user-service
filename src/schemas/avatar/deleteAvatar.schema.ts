@@ -8,6 +8,7 @@ const deleteAvatarSchema: RouteShorthandOptions = {
 	{
 		description: "Delete avatar",
 		tags: ["Avatar"],
+		security: [{ bearerAuth: [] }],
 		response: {
 			200: {
 				type: 'object',

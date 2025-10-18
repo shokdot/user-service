@@ -8,6 +8,7 @@ const updateUserSchema: RouteShorthandOptions = {
 	{
 		description: "Update current user information (username, avatarUrl, preferences, metadata)",
 		tags: ["User"],
+		security: [{ bearerAuth: [] }],
 		body: {
 			type: "object",
 			properties: {

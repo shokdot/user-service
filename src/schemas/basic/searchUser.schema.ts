@@ -8,6 +8,7 @@ const searchUserSchema: RouteShorthandOptions = {
 	{
 		description: "Search user by username.",
 		tags: ["User"],
+		security: [{ bearerAuth: [] }],
 		querystring: {
 			type: 'object',
 			required: ['username'],

@@ -8,6 +8,7 @@ const getUserByNameSchema: RouteShorthandOptions = {
 	{
 		description: "Get user information by username.",
 		tags: ["User"],
+		security: [{ bearerAuth: [] }],
 		params: {
 			type: 'object',
 			required: ['username'],
