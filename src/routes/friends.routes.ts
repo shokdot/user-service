@@ -6,12 +6,13 @@ import {
 	acceptRequestHandler,
 	deleteRequestHandler
 } from '@controllers/friends/index.js'
+import { friends } from "@schemas/index.js";
 
 const friendsRoutes = async (app: FastifyInstance) => {
-	app.get('/', { preHandler: authenticate }, listFriendsHandler);
-	app.post('/:username', { preHandler: authenticate }, sendRequestHandler);
-	app.patch('/:username', { preHandler: authenticate }, acceptRequestHandler);
-	app.delete('/:username', { preHandler: authenticate }, deleteRequestHandler);
+	app.get('', friends.listFriends, listFriendsHandler);
+	app.post('/:username', friends.sendRequest, sendRequestHandler);
+	app.patch('/:username', friends.acceptRequest, acceptRequestHandler);
+	app.delete('/:username', friends.deleteRequest, deleteRequestHandler);
 }
 
 export default friendsRoutes;

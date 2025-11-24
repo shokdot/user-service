@@ -6,8 +6,9 @@ const getUserByNameSchema: RouteShorthandOptions = {
 	preHandler: [authenticate],
 	schema:
 	{
-		description: "Get user by information by username.",
-		tags: ["user"],
+		description: "Get user information by username.",
+		tags: ["User"],
+		security: [{ bearerAuth: [] }],
 		params: {
 			type: 'object',
 			required: ['username'],

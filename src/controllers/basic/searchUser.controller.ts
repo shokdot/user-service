@@ -1,10 +1,10 @@
 import { FastifyReply } from "fastify";
-import { searchUsernameDTO } from "src/dto/search-username.dto.js";
 import { AuthRequest } from '@core/types/authRequest.js';
 import { searchUser } from '@services/basic/index.js';
+import { userByUsernameDTO } from "src/dto/user-by-username.dto.js";
 import sendError from "@core/utils/sendError.js";
 
-const searchUserHandler = async (request: AuthRequest<undefined, searchUsernameDTO>, reply: FastifyReply) => {
+const searchUserHandler = async (request: AuthRequest<undefined, userByUsernameDTO>, reply: FastifyReply) => {
 	try {
 		const { userId } = request;
 		const { username } = request.query;

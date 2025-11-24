@@ -1,7 +1,11 @@
 import prisma from "src/utils/prismaClient.js";
+import checkBlocked from "@core/utils/checkBlocked.js"
 import { AppError } from "@core/utils/AppError.js";
 
 const sendRequest = async (senderId: string, receiverUsername: string) => {
+
+	const isBlocked = await checkBlocked(senderId, receiverUsername);
+	if (isBlocked) throw new AppError('USERS_BLOCKED');
 
 	const receiver = await prisma.userProfile.findUnique({ where: { username: receiverUsername } });
 	if (!receiver) throw new AppError('RECEIVER_NOT_FOUND');

@@ -7,7 +7,8 @@ const getUserByIdSchema: RouteShorthandOptions = {
 	schema:
 	{
 		description: "Get user public information by userId.",
-		tags: ["user"],
+		tags: ["User"],
+		security: [{ bearerAuth: [] }],
 		params: {
 			type: 'object',
 			required: ['userId'],

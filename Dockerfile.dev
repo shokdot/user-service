@@ -1,25 +1,31 @@
 FROM node:20
 
-WORKDIR /app
+WORKDIR /apps
 
-COPY apps/core/package*.json ./apps/core/
-COPY apps/user-service/package*.json ./apps/user-service/
+COPY core/package*.json core/
+COPY core/tsconfig.json core/
 
-WORKDIR /app/apps/core
+COPY user-service/package*.json user-service/
+COPY user-service/tsconfig.json user-service/
+
+WORKDIR /apps/core
 RUN npm install
 
-WORKDIR /app/apps/user-service
+WORKDIR /apps/user-service
 RUN npm install
 
-COPY apps/user-service/prisma ./prisma
+COPY user-service/prisma ./prisma
 RUN npx prisma generate
 
-WORKDIR /app
-COPY apps/core ./apps/core
-COPY apps/user-service ./apps/user-service
+WORKDIR /apps
+COPY core/src core/src
+COPY user-service/src user-service/src
 
-WORKDIR /app/apps/user-service
+WORKDIR /apps/core
+RUN npm run build
 
-EXPOSE 3002
+WORKDIR /apps/user-service
 
-CMD [ "npm", "run", "dev" ]
+EXPOSE 3001
+
+CMD ["sh", "-c", "npx prisma migrate deploy && npm run dev"]

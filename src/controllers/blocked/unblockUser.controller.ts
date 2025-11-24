@@ -2,18 +2,20 @@ import { FastifyReply } from "fastify";
 import { AuthRequest } from "@core/types/authRequest.js";
 import { unblockUser } from "@services/blocked/index.js";
 import sendError from "@core/utils/sendError.js";
+import { blockUserDTO } from "src/dto/block-user.dto.js";
 
-const unblockUserHandler = async (request: AuthRequest, reply: FastifyReply) => {
+const unblockUserHandler = async (request: AuthRequest<blockUserDTO>, reply: FastifyReply) => {
 	try {
 		const { userId } = request;
-		const { targetUserId } = request.params as { targetUserId: string };
+		const { targetUsername } = request.body;
 
-		await unblockUser(userId, targetUserId);
+		await unblockUser(userId, targetUsername);
 
 		return reply.status(200).send({
 			status: "success",
 			message: "User unblocked successfully.",
 		});
+
 	} catch (error: any) {
 		switch (error.code) {
 			case 'BLOCK_NOT_FOUND':

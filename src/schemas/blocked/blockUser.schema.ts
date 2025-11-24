@@ -1,23 +1,28 @@
-import { RouteShorthandOptions } from "fastify";
-import authenticate from '@core/middlewares/authenticate.middleware.js'
+import authenticate from "@core/middlewares/authenticate.middleware.js";
 import { errorResponseSchema } from "@core/schemas/error.schema.js";
+import { RouteShorthandOptions } from "fastify";
 
-const updateUserStatusSchema: RouteShorthandOptions = {
+const blockUserSchema: RouteShorthandOptions = {
 	preHandler: [authenticate],
 	schema:
 	{
-		description: "Update current user status (ONLINE, OFFLINE, IN_GAME)",
-		tags: ["Status"],
+		description: "Block user with username",
+		tags: ["Block"],
 		security: [{ bearerAuth: [] }],
-		body: {
-			type: "object",
-			required: ['status'],
-			properties: {
-				status: { type: "string" },
-			},
+		body:
+		{
+			type: 'object',
+			required: ['targetUsername'],
 			additionalProperties: false,
+			properties: {
+				targetUsername: {
+					type: 'string',
+					description: 'Target username'
+				}
+			}
 		},
-		response: {
+		response:
+		{
 			200: {
 				type: 'object',
 				required: ['status', 'message'],
@@ -31,10 +36,10 @@ const updateUserStatusSchema: RouteShorthandOptions = {
 			401: errorResponseSchema,
 			403: errorResponseSchema,
 			404: errorResponseSchema,
-			409: errorResponseSchema,
 			500: errorResponseSchema
-		},
-	}
-};
+		}
 
-export default updateUserStatusSchema;
+	}
+}
+
+export default blockUserSchema;

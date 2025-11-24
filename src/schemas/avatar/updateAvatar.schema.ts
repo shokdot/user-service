@@ -7,7 +7,8 @@ const updateAvatarSchema: RouteShorthandOptions = {
 	schema:
 	{
 		description: "Update avatar",
-		tags: ["user"],
+		tags: ["Avatar"],
+		security: [{ bearerAuth: [] }],
 		response: {
 			200: {
 				type: 'object',

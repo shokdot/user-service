@@ -1,28 +1,44 @@
 import prisma from 'src/utils/prismaClient.js'
 import { AppError } from '@core/utils/AppError.js';
 
-const blockUser = async (userId: string, targetUserId: string) => {
+const blockUser = async (userId: string, targetUsername: string) => {
+
 	const blocker = await prisma.userProfile.findUnique({ where: { userId } });
 	if (!blocker) throw new AppError('USER_NOT_FOUND');
 
-	if (userId === targetUserId) throw new AppError('BLOCK_SELF');
-
-	const target = await prisma.userProfile.findUnique({
-		where: { userId: targetUserId },
-	});
-
+	const target = await prisma.userProfile.findUnique({ where: { username: targetUsername }, });
 	if (!target) throw new AppError('USER_NOT_FOUND');
 
-	const existingBlock = await prisma.block.findUnique({
-		where: { userId_targetUserId: { userId, targetUserId } },
+	if (userId === target.userId) throw new AppError('BLOCK_SELF');
+
+	const existing = await prisma.block.findUnique({
+		where: {
+			blockerId_blockedId: {
+				blockerId: userId,
+				blockedId: target.userId,
+			},
+		},
 	});
 
-	if (existingBlock) throw new AppError('ALREADY_BLOCKED');
+	if (existing) return false;
 
 	await prisma.block.create({
-		data: { userId, targetUserId },
+		data: {
+			blockerId: userId,
+			blockedId: target.userId,
+		},
 	});
 
+	await prisma.friendship.deleteMany({
+		where: {
+			OR: [
+				{ senderUserId: userId, receiverUserId: target.userId },
+				{ senderUserId: target.userId, receiverUserId: userId },
+			],
+		},
+	});
+
+	return true;
 }
 
 export default blockUser;

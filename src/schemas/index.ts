@@ -9,6 +9,14 @@ import getUserByNameSchema from "./basic/getUserByName.schema.js";
 import searchUserSchema from "./basic/searchUser.schema.js";
 import deleteAvatarSchema from "./avatar/deleteAvatar.schema.js";
 import updateAvatarSchema from "./avatar/updateAvatar.schema.js";
+import blockUserSchema from "./blocked/blockUser.schema.js";
+import unblockUserSchema from "./blocked/unblockUser.schema.js";
+import getBlockedSchema from "./blocked/getBlocked.schema.js";
+import checkBlockSchema from "./blocked/checkBlock.schema.js";
+import acceptRequestSchema from "./friends/acceptRequest.schema.js";
+import deleteRequestSchema from "./friends/deleteRequest.schema.js";
+import sendRequestSchema from "./friends/sendRequest.schema.js";
+import listFriendsSchema from "./friends/listFriends.schema.js";
 
 export const basic = {
 	createUser: createUserSchema,
@@ -28,4 +36,18 @@ export const me = {
 export const avatar = {
 	deleteAvatar: deleteAvatarSchema,
 	updateAvatar: updateAvatarSchema
+};
+
+export const blocked = {
+	blockUser: blockUserSchema,
+	unblockUser: unblockUserSchema,
+	getBlockedUsers: getBlockedSchema,
+	checkBlock: checkBlockSchema
+};
+
+export const friends = {
+	acceptRequest: acceptRequestSchema,
+	deleteRequest: deleteRequestSchema,
+	listFriends: listFriendsSchema,
+	sendRequest: sendRequestSchema
 };
