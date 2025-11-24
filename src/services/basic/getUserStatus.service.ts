@@ -1,10 +1,21 @@
 import prisma from 'src/utils/prismaClient.js';
 import { AppError } from "@core/utils/AppError.js";
 
-const getUserStatus = async (userId: string) => {
+const getUserStatus = async (userId: string, requestingUserId: string) => {
+
+	const block = await prisma.block.findFirst({
+		where: {
+			OR: [
+				{ blockerId: userId, blockedId: requestingUserId },
+				{ blockerId: requestingUserId, blockedId: userId }
+			]
+		}
+	});
+
+	if (block) throw new AppError('USER_BLOCKED');
 
 	const status = await prisma.userProfile.findUnique({
-		where: { userId },
+		where: { userId: requestingUserId },
 		select: { status: true }
 	});
 

@@ -1,11 +1,14 @@
 import { errorResponseSchema } from "@core/schemas/error.schema.js";
 import { RouteShorthandOptions } from "fastify";
+import serviceAuth from '@core/middlewares/serviceAuth.middleware.js';
 
 const createUserSchema: RouteShorthandOptions = {
+	preHandler: [serviceAuth],
 	schema:
 	{
 		description: "Create user. Calls from auth-service dont call it manually use auth-service register instead",
-		tags: ["user"],
+		tags: ["User"],
+		security: [{ serviceToken: [] }],
 		body: {
 			type: 'object',
 			required: ['userId', 'username'],

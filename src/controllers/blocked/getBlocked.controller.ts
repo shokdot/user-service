@@ -14,6 +14,7 @@ const getBlockedHandler = async (request: AuthRequest, reply: FastifyReply) => {
 			data,
 			message: data.count > 0 ? 'Blocked users retrieved successfully.' : 'You have not blocked any users yet.'
 		});
+
 	} catch (error: any) {
 		return sendError(reply, 500, "INTERNAL_SERVER_ERROR", "Internal server error");
 	}
