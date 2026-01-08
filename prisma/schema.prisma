@@ -1,10 +1,9 @@
-generator userClient {
+generator client {
     provider = "prisma-client-js"
 }
 
-datasource userDb {
+datasource db {
     provider = "sqlite"
-    url      = env("DATABASE_URL")
 }
 
 model UserProfile {

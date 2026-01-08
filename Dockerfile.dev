@@ -7,15 +7,14 @@ COPY core/tsconfig.json core/
 
 COPY user-service/package*.json user-service/
 COPY user-service/tsconfig.json user-service/
+COPY user-service/prisma.config.ts user-service/
+COPY user-service/prisma user-service/prisma
 
 WORKDIR /apps/core
 RUN npm install
 
 WORKDIR /apps/user-service
 RUN npm install
-
-COPY user-service/prisma ./prisma
-RUN npx prisma generate
 
 WORKDIR /apps
 COPY core/src core/src
@@ -28,4 +27,4 @@ WORKDIR /apps/user-service
 
 EXPOSE 3001
 
-CMD ["sh", "-c", "npx prisma migrate deploy && npm run dev"]
+CMD ["sh", "-c", "npm run db:deploy && npm run dev"]
