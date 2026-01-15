@@ -7,6 +7,7 @@ import getUserStatusSchema from "./basic/getUserStatus.schema.js";
 import deleteUserSchema from "./me/deleteUser.schema.js";
 import getUserByNameSchema from "./basic/getUserByName.schema.js";
 import searchUserSchema from "./basic/searchUser.schema.js";
+import updateStatusSchema from "./basic/updateStatus.schema.js";
 import deleteAvatarSchema from "./avatar/deleteAvatar.schema.js";
 import updateAvatarSchema from "./avatar/updateAvatar.schema.js";
 import blockUserSchema from "./blocked/blockUser.schema.js";
@@ -23,7 +24,8 @@ export const basic = {
 	getUserById: getUserByIdSchema,
 	getUserStatus: getUserStatusSchema,
 	getUserByName: getUserByNameSchema,
-	searchUser: searchUserSchema
+	searchUser: searchUserSchema,
+	updateStatus: updateStatusSchema
 };
 
 export const me = {
