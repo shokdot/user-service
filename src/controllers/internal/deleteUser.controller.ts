@@ -1,11 +1,12 @@
-import { FastifyReply } from "fastify";
-import { AuthRequest } from '@core/types/authRequest.js';
-import { deleteUser } from '@services/me/index.js';
+import { FastifyReply, FastifyRequest } from "fastify";
+import { deleteUser } from '@services/internal/index.js';
+import { userByIdDTO } from "src/dto/user-by-id.dto.js";
 import sendError from "@core/utils/sendError.js";
 
-const deleteUserHandler = async (request: AuthRequest, reply: FastifyReply) => {
+const deleteUserHandler = async (request: FastifyRequest<{ Params: userByIdDTO }>, reply: FastifyReply) => {
 	try {
-		const { userId } = request;
+		const { userId } = request.params;
+
 		await deleteUser(userId);
 
 		return reply.status(200).send({

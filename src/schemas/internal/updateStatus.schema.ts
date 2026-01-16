@@ -1,11 +1,11 @@
 import { RouteShorthandOptions } from "fastify";
-import serviceAuth from '@core/middlewares/serviceAuth.middleware.js';
 import { errorResponseSchema } from "@core/schemas/error.schema.js";
+import serviceAuth from '@core/middlewares/serviceAuth.middleware.js';
 
 const updateStatusSchema: RouteShorthandOptions = {
     preHandler: [serviceAuth as any],
     schema: {
-        description: "Update user status (internal)",
+        description: "Update user status",
         tags: ["Internal"],
         params: {
             type: "object",

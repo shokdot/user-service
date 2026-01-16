@@ -1,4 +1,3 @@
-export { default as createUser } from './createUser.service.js'
 export { default as getUserById } from './getUserById.service.js'
 export { default as getUserByName } from './getUserByName.service.js'
 export { default as getUserStatus } from './getUserStatus.service.js'

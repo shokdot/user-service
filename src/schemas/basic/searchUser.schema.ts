@@ -1,6 +1,6 @@
 import { RouteShorthandOptions } from "fastify";
-import authenticate from '@core/middlewares/authenticate.middleware.js'
 import { errorResponseSchema } from "@core/schemas/error.schema.js";
+import authenticate from '@core/middlewares/authenticate.middleware.js'
 
 const searchUserSchema: RouteShorthandOptions = {
 	preHandler: [authenticate],
@@ -12,6 +12,7 @@ const searchUserSchema: RouteShorthandOptions = {
 		querystring: {
 			type: 'object',
 			required: ['username'],
+			additionalProperties: false,
 			properties: {
 				username: { type: 'string' }
 			}
@@ -19,8 +20,8 @@ const searchUserSchema: RouteShorthandOptions = {
 		response: {
 			200: {
 				type: 'object',
-				// required: ['status', 'data', 'message'],
-				additionalProperties: true,
+				required: ['status', 'data', 'message'],
+				additionalProperties: false,
 				properties: {
 					status: { type: 'string', enum: ['success'] },
 					data: {

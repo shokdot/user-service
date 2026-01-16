@@ -1,5 +1,5 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { updateUserStatus } from '@services/me/index.js';
+import { updateStatus } from '@services/internal/index.js';
 import { updateStatusDTO } from "src/dto/update-status.dto.js";
 import { userByIdDTO } from "src/dto/user-by-id.dto.js";
 import sendError from "@core/utils/sendError.js";
@@ -9,7 +9,7 @@ const updateStatusHandler = async (request: FastifyRequest<{ Params: userByIdDTO
         const { userId } = request.params;
         const { status } = request.body;
 
-        await updateUserStatus(userId, status);
+        await updateStatus(userId, status);
 
         reply.status(200).send({
             status: 'success',

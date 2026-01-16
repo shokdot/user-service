@@ -1,15 +1,22 @@
 import { RouteShorthandOptions } from "fastify";
-import authenticate from '@core/middlewares/authenticate.middleware.js';
-import serviceAuth from "@core/middlewares/serviceAuth.middleware.js";
 import { errorResponseSchema } from "@core/schemas/error.schema.js";
+import serviceAuth from "@core/middlewares/serviceAuth.middleware.js";
 
 const deleteUserSchema: RouteShorthandOptions = {
-	preHandler: [serviceAuth, authenticate],
+	preHandler: [serviceAuth as any],
 	schema:
 	{
-		description: "Delete current user",
-		tags: ["User"],
-		security: [{ serviceToken: [] }, { bearerAuth: [] }],
+		description: "Delete user by id",
+		tags: ["Internal"],
+		security: [{ serviceToken: [] }],
+		params: {
+			type: 'object',
+			required: ['userId'],
+			additionalProperties: false,
+			properties: {
+				userId: { type: 'string', format: 'uuid' }
+			},
+		},
 		response: {
 			200: {
 				type: 'object',

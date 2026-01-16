@@ -1,8 +1,8 @@
 import { FastifyReply } from "fastify";
 import { AuthRequest } from "@core/types/authRequest.js";
-import { sendError } from "@core/index.js";
 import { deleteRequest } from '@services/friends/index.js'
 import { deleteRequestDTO } from "src/dto/delete-friend-request.dto.js";
+import sendError from "@core/utils/sendError.js";
 
 const deleteRequestHandler = async (request: AuthRequest<undefined, undefined, deleteRequestDTO>, reply: FastifyReply) => {
 	try {

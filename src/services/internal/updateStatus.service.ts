@@ -1,8 +1,8 @@
 import { userStatus } from 'src/types/userStatus.js';
-import prisma from 'src/utils/prismaClient.js';
 import { AppError } from "@core/utils/AppError.js";
+import prisma from 'src/utils/prismaClient.js';
 
-const updateUserStatus = async (userId: string, status: userStatus) => {
+const updateStatus = async (userId: string, status: userStatus) => {
 
 	if (!status)
 		throw new AppError('NO_STATUS_PROVIDED');
@@ -23,4 +23,4 @@ const updateUserStatus = async (userId: string, status: userStatus) => {
 	}
 }
 
-export default updateUserStatus;
+export default updateStatus;

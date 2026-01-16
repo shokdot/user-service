@@ -1,8 +1,8 @@
-import { FastifyReply, FastifyRequest } from "fastify";
+import { FastifyReply } from "fastify";
 import { getUserById } from '@services/basic/index.js';
 import { userByIdDTO } from "src/dto/user-by-id.dto.js";
-import sendError from "@core/utils/sendError.js";
 import { AuthRequest } from "@core/types/authRequest.js";
+import sendError from "@core/utils/sendError.js";
 
 const getUserByIdHandler = async (request: AuthRequest<undefined, undefined, userByIdDTO>, reply: FastifyReply) => {
 	try {

@@ -2,7 +2,7 @@ import { FastifyReply } from "fastify";
 import { AuthRequest } from "@core/types/authRequest.js";
 import { acceptRequestDTO } from "src/dto/accept-friend-request.dto.js";
 import { acceptRequest } from '@services/friends/index.js'
-import { sendError } from "@core/index.js";
+import sendError from "@core/utils/sendError.js";
 
 const acceptRequestHandler = async (request: AuthRequest<undefined, undefined, acceptRequestDTO>, reply: FastifyReply) => {
 	try {

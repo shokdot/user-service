@@ -1,13 +1,13 @@
-import serviceAuth from "@core/middlewares/serviceAuth.middleware.js";
 import { errorResponseSchema } from "@core/schemas/error.schema.js";
 import { RouteShorthandOptions } from "fastify";
+import serviceAuth from "@core/middlewares/serviceAuth.middleware.js";
 
 const checkBlockSchema: RouteShorthandOptions = {
-	preHandler: [serviceAuth],
+	preHandler: [serviceAuth as any],
 	schema:
 	{
 		description: "Block user with username",
-		tags: ["Block"],
+		tags: ["Internal"],
 		security: [{ serviceToken: [] }],
 		querystring: {
 			type: 'object',

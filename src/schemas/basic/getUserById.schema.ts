@@ -1,6 +1,6 @@
 import { RouteShorthandOptions } from "fastify";
-import authenticate from '@core/middlewares/authenticate.middleware.js'
 import { errorResponseSchema } from "@core/schemas/error.schema.js";
+import authenticate from '@core/middlewares/authenticate.middleware.js'
 
 const getUserByIdSchema: RouteShorthandOptions = {
 	preHandler: [authenticate],

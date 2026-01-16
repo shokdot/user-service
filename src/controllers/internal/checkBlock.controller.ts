@@ -1,7 +1,7 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { checkBlock } from "@services/blocked/index.js";
-import { sendError } from "@core/index.js";
+import { checkBlock } from "@services/internal/index.js";
 import { checkBlockDTO } from "src/dto/check-block.dto.js";
+import sendError from "@core/utils/sendError.js";
 
 const checkBlockHandler = async (request: FastifyRequest<{ Querystring: checkBlockDTO }>, reply: FastifyReply) => {
 	try {

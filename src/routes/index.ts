@@ -4,6 +4,7 @@ import meRoutes from "./me.routes.js";
 import avatarRoutes from "./avatar.routes.js";
 import friendsRoutes from "./friends.routes.js";
 import blockedRoutes from "./blocked.routes.js";
+import internalRoutes from "./internal.routes.js";
 
 export default async function userRoutes(app: FastifyInstance): Promise<void> {
 	app.register(basicRoutes);
@@ -11,4 +12,5 @@ export default async function userRoutes(app: FastifyInstance): Promise<void> {
 	app.register(meRoutes, { prefix: '/me' });
 	app.register(avatarRoutes, { prefix: '/me/avatar' });
 	app.register(friendsRoutes, { prefix: '/me/friends' });
+	app.register(internalRoutes, { prefix: '/internal' });
 }

@@ -1,4 +1,3 @@
-import authenticate from "@core/middlewares/authenticate.middleware.js";
 import { FastifyInstance } from "fastify";
 import {
 	listFriendsHandler,
@@ -9,7 +8,7 @@ import {
 import { friends } from "@schemas/index.js";
 
 const friendsRoutes = async (app: FastifyInstance) => {
-	app.get('', friends.listFriends, listFriendsHandler);
+	app.get('/', friends.listFriends, listFriendsHandler);
 	app.post('/:username', friends.sendRequest, sendRequestHandler);
 	app.patch('/:username', friends.acceptRequest, acceptRequestHandler);
 	app.delete('/:username', friends.deleteRequest, deleteRequestHandler);
