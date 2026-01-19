@@ -1,4 +1,5 @@
 import { RouteShorthandOptions } from "fastify";
+import "@fastify/rate-limit";
 import { errorResponseSchema } from "@core/schemas/error.schema.js";
 import authenticate from '@core/middlewares/authenticate.middleware.js'
 
@@ -57,6 +58,12 @@ const searchUserSchema: RouteShorthandOptions = {
 			404: errorResponseSchema,
 			500: errorResponseSchema
 		},
+	},
+	config: {
+		rateLimit: {
+			max: 20,
+			timeWindow: '1 minute'
+		}
 	}
 };
 
