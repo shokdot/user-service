@@ -3,7 +3,7 @@ import { errorResponseSchema } from "@core/schemas/error.schema.js";
 import serviceAuth from '@core/middlewares/serviceAuth.middleware.js';
 
 const createUserSchema: RouteShorthandOptions = {
-	preHandler: [serviceAuth as any],
+	preHandler: [serviceAuth],
 	schema:
 	{
 		description: "Create user. Calls from auth-service dont call it manually use auth-service register instead",

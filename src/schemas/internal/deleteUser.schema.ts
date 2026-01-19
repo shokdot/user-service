@@ -3,7 +3,7 @@ import { errorResponseSchema } from "@core/schemas/error.schema.js";
 import serviceAuth from "@core/middlewares/serviceAuth.middleware.js";
 
 const deleteUserSchema: RouteShorthandOptions = {
-	preHandler: [serviceAuth as any],
+	preHandler: [serviceAuth],
 	schema:
 	{
 		description: "Delete user by id",

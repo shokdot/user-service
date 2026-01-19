@@ -3,7 +3,7 @@ import { errorResponseSchema } from "@core/schemas/error.schema.js";
 import serviceAuth from '@core/middlewares/serviceAuth.middleware.js';
 
 const updateStatusSchema: RouteShorthandOptions = {
-    preHandler: [serviceAuth as any],
+    preHandler: [serviceAuth],
     schema: {
         description: "Update user status",
         tags: ["Internal"],

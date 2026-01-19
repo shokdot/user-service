@@ -3,7 +3,7 @@ import { RouteShorthandOptions } from "fastify";
 import serviceAuth from "@core/middlewares/serviceAuth.middleware.js";
 
 const checkBlockSchema: RouteShorthandOptions = {
-	preHandler: [serviceAuth as any],
+	preHandler: [serviceAuth],
 	schema:
 	{
 		description: "Block user with username",
