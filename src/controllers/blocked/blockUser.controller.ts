@@ -1,8 +1,7 @@
 import { FastifyReply } from "fastify";
-import { AuthRequest } from "@core/types/authRequest.js";
+import { AuthRequest, sendError } from "@core/index.js";
 import { blockUser } from "@services/blocked/index.js";
 import { blockUserDTO } from "src/dto/block-user.dto.js";
-import sendError from "@core/utils/sendError.js";
 
 const blockUserHandler = async (request: AuthRequest<blockUserDTO>, reply: FastifyReply) => {
 	try {

@@ -1,6 +1,6 @@
 import prisma from "src/utils/prismaClient.js";
 import { updateUserDTO } from "src/dto/update-user.dto.js";
-import { AppError } from "@core/utils/AppError.js";
+import { AppError } from "@core/index.js";
 
 const updateUser = async (userId: string, data: updateUserDTO) => {
 

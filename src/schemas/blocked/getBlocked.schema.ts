@@ -1,6 +1,5 @@
-import { errorResponseSchema } from "@core/schemas/error.schema.js";
+import { errorResponseSchema, authenticate } from "@core/index.js";
 import { RouteShorthandOptions } from "fastify";
-import authenticate from "@core/middlewares/authenticate.middleware.js";
 
 const getBlockedSchema: RouteShorthandOptions = {
 	preHandler: [authenticate],

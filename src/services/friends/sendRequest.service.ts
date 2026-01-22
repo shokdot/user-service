@@ -1,6 +1,5 @@
 import prisma from "src/utils/prismaClient.js";
-import checkBlocked from "@core/utils/checkBlocked.js"
-import { AppError } from "@core/utils/AppError.js";
+import { checkBlocked, AppError } from "@core/index.js";
 
 const sendRequest = async (senderId: string, receiverUsername: string) => {
 

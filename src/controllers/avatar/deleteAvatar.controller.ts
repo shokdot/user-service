@@ -1,7 +1,6 @@
 import { FastifyReply } from "fastify";
-import { AuthRequest } from '@core/types/authRequest.js';
+import { AuthRequest, sendError } from '@core/index.js';
 import { updateAvatar } from '@services/avatar/index.js'
-import sendError from "@core/utils/sendError.js";
 import getAvatarUrl from "src/utils/avatar.js";
 
 const deleteAvatarHandler = async (request: AuthRequest, reply: FastifyReply) => {

@@ -1,5 +1,5 @@
 import prisma from "src/utils/prismaClient.js";
-import { AppError } from "@core/utils/AppError.js";
+import { AppError } from "@core/index.js";
 
 const getUserByName = async (userId: string, username: string) => {
 

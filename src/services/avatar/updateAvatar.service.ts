@@ -1,6 +1,6 @@
 import isBase64Image from "src/utils/isBase64Image.js";
 import prisma from "src/utils/prismaClient.js";
-import { AppError } from "@core/utils/AppError.js";
+import { AppError } from "@core/index.js";
 
 const updateAvatar = async (userId: string, avatarUrl: string) => {
 	const user = await prisma.userProfile.findUnique({ where: { userId } });

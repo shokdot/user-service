@@ -1,7 +1,6 @@
 import { RouteShorthandOptions } from "fastify";
 import "@fastify/rate-limit";
-import { errorResponseSchema } from "@core/schemas/error.schema.js";
-import authenticate from '@core/middlewares/authenticate.middleware.js'
+import { errorResponseSchema, authenticate } from "@core/index.js";
 
 const searchUserSchema: RouteShorthandOptions = {
 	preHandler: [authenticate],

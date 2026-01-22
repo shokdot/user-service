@@ -1,7 +1,6 @@
 import { FastifyReply } from "fastify";
-import { AuthRequest } from '@core/types/authRequest.js';
+import { AuthRequest, sendError } from '@core/index.js';
 import { updateUser } from '@services/me/index.js';
-import sendError from "@core/utils/sendError.js";
 import { updateUserDTO } from "src/dto/update-user.dto.js";
 
 const updateUserHandler = async (request: AuthRequest<updateUserDTO>, reply: FastifyReply) => {

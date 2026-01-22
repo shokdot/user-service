@@ -1,3 +1,4 @@
+import '@fastify/swagger';
 import getCurrentUserSchema from "./me/getCurrentUser.schema.js";
 import getUserByIdSchema from "./basic/getUserById.schema.js";
 import updateUserStatusSchema from "./me/updateStatus.schema.js";

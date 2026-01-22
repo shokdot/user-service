@@ -1,6 +1,6 @@
 import prisma from "src/utils/prismaClient.js";
 import getAvatarUrl from "src/utils/avatar.js";
-import { AppError } from "@core/utils/AppError.js";
+import { AppError } from "@core/index.js";
 
 const createUser = async (userId: string, username: string) => {
 

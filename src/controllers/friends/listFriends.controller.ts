@@ -1,8 +1,7 @@
 import { FastifyReply } from "fastify";
-import { AuthRequest } from "@core/types/authRequest.js";
+import { AuthRequest, sendError } from "@core/index.js";
 import { listFriends } from '@services/friends/index.js'
 import { listFriendDTO } from "src/dto/list-friend.dto.js";
-import sendError from "@core/utils/sendError.js";
 
 const listFriendsHandler = async (requst: AuthRequest<undefined, listFriendDTO>, reply: FastifyReply) => {
 	try {

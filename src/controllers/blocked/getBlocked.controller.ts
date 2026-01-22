@@ -1,7 +1,6 @@
 import { FastifyReply } from "fastify";
-import { AuthRequest } from "@core/types/authRequest.js";
+import { AuthRequest, sendError } from "@core/index.js";
 import { getBlocked } from "@services/blocked/index.js";
-import sendError from "@core/utils/sendError.js";
 
 const getBlockedHandler = async (request: AuthRequest, reply: FastifyReply) => {
 	try {

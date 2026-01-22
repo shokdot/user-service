@@ -1,5 +1,5 @@
 import { userStatus } from 'src/types/userStatus.js';
-import { AppError } from "@core/utils/AppError.js";
+import { AppError } from "@core/index.js";
 import prisma from 'src/utils/prismaClient.js';
 
 const updateStatus = async (userId: string, status: userStatus) => {

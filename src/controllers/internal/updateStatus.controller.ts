@@ -2,7 +2,7 @@ import { FastifyReply, FastifyRequest } from "fastify";
 import { updateStatus } from '@services/internal/index.js';
 import { updateStatusDTO } from "src/dto/update-status.dto.js";
 import { userByIdDTO } from "src/dto/user-by-id.dto.js";
-import sendError from "@core/utils/sendError.js";
+import { sendError } from "@core/index.js";
 
 const updateStatusHandler = async (request: FastifyRequest<{ Params: userByIdDTO, Body: updateStatusDTO }>, reply: FastifyReply) => {
     try {

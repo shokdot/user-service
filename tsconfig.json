@@ -9,7 +9,7 @@
 		"baseUrl": ".",
 		"paths": {
 			"@core/*": [
-				"../core/src/*"
+				"../core/dist/*"
 			],
 			"@controllers/*": [
 				"./src/controllers/*"

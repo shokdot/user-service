@@ -1,6 +1,5 @@
-import { errorResponseSchema } from "@core/schemas/error.schema.js";
+import { errorResponseSchema, serviceAuth } from "@core/index.js";
 import { RouteShorthandOptions } from "fastify";
-import serviceAuth from "@core/middlewares/serviceAuth.middleware.js";
 
 const checkBlockSchema: RouteShorthandOptions = {
 	preHandler: [serviceAuth],
