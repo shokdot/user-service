@@ -1,7 +1,7 @@
 import { FastifyReply } from "fastify";
 import { sendRequestDTO } from "src/dto/send-friend-request.dto.js";
 import { sendRequest } from "@services/friends/index.js"
-import { AuthRequest, sendError } from "@core/index.js";
+import { AuthRequest, sendError, AppError } from "@core/index.js";
 
 const sendRequestHandler = async (request: AuthRequest<undefined, undefined, sendRequestDTO>, reply: FastifyReply) => {
 	try {
@@ -15,20 +15,11 @@ const sendRequestHandler = async (request: AuthRequest<undefined, undefined, sen
 			message: 'Friend request successfully sent.'
 		});
 
-	} catch (error) {
-		switch (error.code) {
-			case 'CANT_SEND_YOURSELF':
-				return sendError(reply, 400, error.code, 'You cannot send a request to yourself.');
-			case 'USERS_BLOCKED':
-				return sendError(reply, 403, error.code, 'Cannot send friend request. Users are blocked.');
-			case 'USER_NOT_FOUND':
-				return sendError(reply, 404, error.code, 'The requested user does not exist.');
-			case 'ALREADY_SENT':
-				return sendError(reply, 409, error.code, 'A request already exists between these users.');
-
-			default:
-				return sendError(reply, 500, 'INTERNAL_SERVER_ERROR', 'Internal server error');
+	} catch (error: any) {
+		if (error instanceof AppError) {
+			return sendError(reply, error);
 		}
+		return sendError(reply, 500, 'INTERNAL_SERVER_ERROR', 'Internal server error');
 	}
 };
 

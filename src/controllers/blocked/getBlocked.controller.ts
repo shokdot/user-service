@@ -1,5 +1,5 @@
 import { FastifyReply } from "fastify";
-import { AuthRequest, sendError } from "@core/index.js";
+import { AuthRequest, sendError, AppError } from "@core/index.js";
 import { getBlocked } from "@services/blocked/index.js";
 
 const getBlockedHandler = async (request: AuthRequest, reply: FastifyReply) => {
@@ -15,6 +15,9 @@ const getBlockedHandler = async (request: AuthRequest, reply: FastifyReply) => {
 		});
 
 	} catch (error: any) {
+		if (error instanceof AppError) {
+			return sendError(reply, error);
+		}
 		return sendError(reply, 500, "INTERNAL_SERVER_ERROR", "Internal server error");
 	}
 };

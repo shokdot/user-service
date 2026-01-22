@@ -1,5 +1,5 @@
 import { FastifyReply } from "fastify";
-import { AuthRequest, sendError } from "@core/index.js";
+import { AuthRequest, sendError, AppError } from "@core/index.js";
 import { acceptRequestDTO } from "src/dto/accept-friend-request.dto.js";
 import { acceptRequest } from '@services/friends/index.js'
 
@@ -15,18 +15,11 @@ const acceptRequestHandler = async (request: AuthRequest<undefined, undefined, a
 			message: 'Friend request accepted.'
 		});
 
-	} catch (error) {
-		switch (error.code) {
-			case "USER_NOT_FOUND":
-				return sendError(reply, 404, error.code, "User not found");
-
-			case "FRIEND_REQUEST_NOT_FOUND":
-				return sendError(reply, 404, error.code, "Friend request not found");
-
-			default:
-				return sendError(reply, 500, 'INTERNAL_SERVER_ERROR', 'Internal server error');
+	} catch (error: any) {
+		if (error instanceof AppError) {
+			return sendError(reply, error);
 		}
-
+		return sendError(reply, 500, 'INTERNAL_SERVER_ERROR', 'Internal server error');
 	}
 }
 export default acceptRequestHandler;

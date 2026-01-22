@@ -1,5 +1,5 @@
 import { FastifyReply } from "fastify";
-import { AuthRequest, sendError } from "@core/index.js";
+import { AuthRequest, sendError, AppError } from "@core/index.js";
 import { deleteRequest } from '@services/friends/index.js'
 import { deleteRequestDTO } from "src/dto/delete-friend-request.dto.js";
 
@@ -15,18 +15,11 @@ const deleteRequestHandler = async (request: AuthRequest<undefined, undefined, d
 			message: 'Friend removed or request rejected successfully'
 		});
 
-	} catch (error) {
-		switch (error.code) {
-			case "USER_NOT_FOUND":
-				return sendError(reply, 404, error.code, "User not found");
-
-			case "FRIENDSHIP_NOT_FOUND":
-				return sendError(reply, 404, error.code, "Friendship not found");
-
-			default:
-				return sendError(reply, 500, 'INTERNAL_SERVER_ERROR', 'Internal server error');
+	} catch (error: any) {
+		if (error instanceof AppError) {
+			return sendError(reply, error);
 		}
-
+		return sendError(reply, 500, 'INTERNAL_SERVER_ERROR', 'Internal server error');
 	}
 };
 

@@ -1,7 +1,7 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { deleteUser } from '@services/internal/index.js';
 import { userByIdDTO } from "src/dto/user-by-id.dto.js";
-import { sendError } from "@core/index.js";
+import { sendError, AppError } from "@core/index.js";
 
 const deleteUserHandler = async (request: FastifyRequest<{ Params: userByIdDTO }>, reply: FastifyReply) => {
 	try {
@@ -15,13 +15,10 @@ const deleteUserHandler = async (request: FastifyRequest<{ Params: userByIdDTO }
 		});
 	}
 	catch (error: any) {
-		switch (error.code) {
-			case 'USER_NOT_FOUND':
-				return sendError(reply, 404, error.code, 'The requested user does not exist.');
-
-			default:
-				return sendError(reply, 500, 'INTERNAL_SERVER_ERROR', 'Internal server error');
+		if (error instanceof AppError) {
+			return sendError(reply, error);
 		}
+		return sendError(reply, 500, 'INTERNAL_SERVER_ERROR', 'Internal server error');
 	}
 };
 

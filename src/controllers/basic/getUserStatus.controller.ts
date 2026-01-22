@@ -1,5 +1,5 @@
 import { FastifyReply } from "fastify";
-import { AuthRequest, sendError } from '@core/index.js';
+import { AuthRequest, sendError, AppError } from '@core/index.js';
 import { getUserStatus } from '@services/basic/index.js';
 import { userByIdDTO } from "src/dto/user-by-id.dto.js";
 
@@ -18,15 +18,10 @@ const getUserStatusHandler = async (request: AuthRequest<undefined, undefined, u
 
 	}
 	catch (error: any) {
-		switch (error.code) {
-			case 'USER_NOT_FOUND':
-				return sendError(reply, 404, error.code, 'The requested user does not exist.');
-			case 'USER_BLOCKED':
-				return sendError(reply, 403, error.code, 'Access to this user is blocked.');
-
-			default:
-				return sendError(reply, 500, 'INTERNAL_SERVER_ERROR', 'Internal server error');
+		if (error instanceof AppError) {
+			return sendError(reply, error);
 		}
+		return sendError(reply, 500, 'INTERNAL_SERVER_ERROR', 'Internal server error');
 	}
 }
 

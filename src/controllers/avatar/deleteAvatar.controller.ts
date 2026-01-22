@@ -1,5 +1,5 @@
 import { FastifyReply } from "fastify";
-import { AuthRequest, sendError } from '@core/index.js';
+import { AuthRequest, sendError, AppError } from '@core/index.js';
 import { updateAvatar } from '@services/avatar/index.js'
 import getAvatarUrl from "src/utils/avatar.js";
 
@@ -16,16 +16,10 @@ const deleteAvatarHandler = async (request: AuthRequest, reply: FastifyReply) =>
 
 	}
 	catch (error: any) {
-		switch (error.code) {
-			case 'USER_NOT_FOUND':
-				return sendError(reply, 404, error.code, 'The requested user does not exist.');
-
-			case 'INVALID_AVATAR':
-				return sendError(reply, 400, error.code, 'Avatar must be a valid Base64 image.');
-
-			default:
-				return sendError(reply, 500, 'INTERNAL_SERVER_ERROR', 'Internal server error');
+		if (error instanceof AppError) {
+			return sendError(reply, error);
 		}
+		return sendError(reply, 500, 'INTERNAL_SERVER_ERROR', 'Internal server error');
 	}
 }
 

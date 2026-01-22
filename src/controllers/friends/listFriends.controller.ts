@@ -1,5 +1,5 @@
 import { FastifyReply } from "fastify";
-import { AuthRequest, sendError } from "@core/index.js";
+import { AuthRequest, sendError, AppError } from "@core/index.js";
 import { listFriends } from '@services/friends/index.js'
 import { listFriendDTO } from "src/dto/list-friend.dto.js";
 
@@ -16,14 +16,11 @@ const listFriendsHandler = async (requst: AuthRequest<undefined, listFriendDTO>,
 			message: data.count > 0 ? 'Friends list retrieved successfully.' : 'No friends yet.'
 		});
 
-	} catch (error) {
-		switch (error.code) {
-			case 'USER_NOT_FOUND':
-				return sendError(reply, 404, error.code, 'The requested user does not exist.');
-
-			default:
-				return sendError(reply, 500, 'INTERNAL_SERVER_ERROR', 'Internal server error');
+	} catch (error: any) {
+		if (error instanceof AppError) {
+			return sendError(reply, error);
 		}
+		return sendError(reply, 500, 'INTERNAL_SERVER_ERROR', 'Internal server error');
 	}
 };
 

@@ -1,5 +1,5 @@
 import { FastifyReply } from "fastify";
-import { AuthRequest, sendError } from "@core/index.js";
+import { AuthRequest, sendError, AppError } from "@core/index.js";
 import { unblockUser } from "@services/blocked/index.js";
 import { blockUserDTO } from "src/dto/block-user.dto.js";
 
@@ -16,13 +16,10 @@ const unblockUserHandler = async (request: AuthRequest<blockUserDTO>, reply: Fas
 		});
 
 	} catch (error: any) {
-		switch (error.code) {
-			case 'BLOCK_NOT_FOUND':
-				return sendError(reply, 404, error.code, 'This user is not blocked.');
-
-			default:
-				return sendError(reply, 500, "INTERNAL_SERVER_ERROR", "Internal server error");
+		if (error instanceof AppError) {
+			return sendError(reply, error);
 		}
+		return sendError(reply, 500, "INTERNAL_SERVER_ERROR", "Internal server error");
 	}
 };
 

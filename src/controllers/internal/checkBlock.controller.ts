@@ -1,7 +1,7 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { checkBlock } from "@services/internal/index.js";
 import { checkBlockDTO } from "src/dto/check-block.dto.js";
-import { sendError } from "@core/index.js";
+import { sendError, AppError } from "@core/index.js";
 
 const checkBlockHandler = async (request: FastifyRequest<{ Querystring: checkBlockDTO }>, reply: FastifyReply) => {
 	try {
@@ -18,6 +18,9 @@ const checkBlockHandler = async (request: FastifyRequest<{ Querystring: checkBlo
 		});
 
 	} catch (error: any) {
+		if (error instanceof AppError) {
+			return sendError(reply, error);
+		}
 		return sendError(reply, 500, "INTERNAL_SERVER_ERROR", "Internal server error");
 	}
 };

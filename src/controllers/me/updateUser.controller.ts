@@ -1,5 +1,5 @@
 import { FastifyReply } from "fastify";
-import { AuthRequest, sendError } from '@core/index.js';
+import { AuthRequest, sendError, AppError } from '@core/index.js';
 import { updateUser } from '@services/me/index.js';
 import { updateUserDTO } from "src/dto/update-user.dto.js";
 
@@ -17,19 +17,10 @@ const updateUserHandler = async (request: AuthRequest<updateUserDTO>, reply: Fas
 
 	}
 	catch (error: any) {
-		switch (error.code) {
-			case 'NO_FIELDS_PROVIDED':
-				return sendError(reply, 400, error.code, 'No fields provided for update.');
-
-			case 'USERNAME_TAKEN':
-				return sendError(reply, 409, error.code, 'The username is already taken.');
-
-			case 'USER_NOT_FOUND':
-				return sendError(reply, 404, error.code, 'The requested user does not exist.');
-
-			default:
-				return sendError(reply, 500, 'INTERNAL_SERVER_ERROR', 'Internal server error');
+		if (error instanceof AppError) {
+			return sendError(reply, error);
 		}
+		return sendError(reply, 500, 'INTERNAL_SERVER_ERROR', 'Internal server error');
 	}
 }
 
