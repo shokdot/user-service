@@ -13,7 +13,7 @@ const getUserStatusHandler = async (request: AuthRequest<undefined, undefined, u
 		reply.status(200).send({
 			status: 'success',
 			data,
-			message: 'User status updated successfully'
+			message: 'User status retrieved successfully'
 		});
 
 	}

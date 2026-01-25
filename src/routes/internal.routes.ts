@@ -4,13 +4,15 @@ import {
     createUserHandler,
     updateStatusHandler,
     checkBlockHandler,
-    deleteUserHandler
+    deleteUserHandler,
+    getAcceptedFriendsHandler
 } from "@controllers/internal/index.js"
 
 const internalRoutes = async (app: FastifyInstance) => {
     app.post('/', internal.createUser, createUserHandler);
     app.patch('/:userId/status', internal.updateStatus, updateStatusHandler);
     app.get("/check-block", internal.checkBlock, checkBlockHandler);
+    app.get('/:userId/friends', internal.getAcceptedFriends, getAcceptedFriendsHandler);
     app.delete('/:userId', internal.deleteUser, deleteUserHandler);
 }
 

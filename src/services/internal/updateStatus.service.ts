@@ -1,6 +1,7 @@
 import { userStatus } from 'src/types/userStatus.js';
 import { AppError } from "@core/index.js";
 import prisma from 'src/utils/prismaClient.js';
+import notifyFriends from './notifyFriends.service.js';
 
 const updateStatus = async (userId: string, status: userStatus) => {
 
@@ -15,6 +16,9 @@ const updateStatus = async (userId: string, status: userStatus) => {
 			where: { userId },
 			data: { status },
 		});
+
+		await notifyFriends(userId, status);
+
 	} catch (error: any) {
 		if (error.code === 'P2025') {
 			throw new AppError('USER_NOT_FOUND');

@@ -19,6 +19,7 @@ import createUserSchema from "./internal/createUser.schema.js";
 import updateStatusSchema from "./internal/updateStatus.schema.js";
 import checkBlockSchema from "./internal/checkBlock.schema.js";
 import deleteUserSchema from "./internal/deleteUser.schema.js";
+import getAcceptedFriendsSchema from "./internal/getAcceptedFriends.schema.js";
 
 export const basic = {
 	getUserById: getUserByIdSchema,
@@ -55,5 +56,6 @@ export const internal = {
 	createUser: createUserSchema,
 	updateStatus: updateStatusSchema,
 	checkBlock: checkBlockSchema,
-	deleteUser: deleteUserSchema
+	deleteUser: deleteUserSchema,
+	getAcceptedFriends: getAcceptedFriendsSchema
 };

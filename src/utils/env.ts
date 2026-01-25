@@ -6,7 +6,8 @@ const envSchema = z.object({
 	SERVICE_TOKEN: z.string().min(1, "SERVICE_TOKEN is required"),
 	JWT_SECRET: z.string().min(1, "JWT_SECRET is required"),
 	JWT_REFRESH_SECRET: z.string().min(1, "JWT_REFRESH_SECRET is required"),
-	JWT_TWO_FA: z.string().min(1, "JWT_TWO_FA is required")
+	JWT_TWO_FA: z.string().min(1, "JWT_TWO_FA is required"),
+	NOTIFICATION_SERVICE_URL: z.url("NOTIFICATION_SERVICE_URL must be a valid URL")
 });
 
 const env = envSchema.parse(process.env);
@@ -17,4 +18,5 @@ export const SERVICE_TOKEN = env.SERVICE_TOKEN;
 export const JWT_SECRET = env.JWT_SECRET;
 export const JWT_REFRESH_SECRET = env.JWT_REFRESH_SECRET;
 export const JWT_TWO_FA = env.JWT_TWO_FA;
+export const NOTIFICATION_SERVICE_URL = env.NOTIFICATION_SERVICE_URL;
 export const SERVICE_NAME = 'USER_SERVICE';
