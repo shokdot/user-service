@@ -3,11 +3,19 @@ import { errorResponseSchema, authenticate } from "@core/index.js";
 
 const updateAvatarSchema: RouteShorthandOptions = {
 	preHandler: [authenticate],
+	bodyLimit: 5 * 1024 * 1024, // 5 MB — base64 images are ~33% larger than the original
 	schema:
 	{
 		description: "Update avatar",
 		tags: ["Avatar"],
 		security: [{ bearerAuth: [] }],
+		body: {
+			type: 'object',
+			required: ['avatarUrl'],
+			properties: {
+				avatarUrl: { type: 'string' },
+			},
+		},
 		response: {
 			200: {
 				type: 'object',

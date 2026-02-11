@@ -10,6 +10,8 @@ const getUserById = async (userId: string, requestingUserId: string) => {
 		select: {
 			userId: true,
 			username: true,
+			displayName: true,
+			bio: true,
 			avatarUrl: true,
 			createdAt: true,
 			updatedAt: true

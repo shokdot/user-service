@@ -24,13 +24,17 @@ const getUserByNameSchema: RouteShorthandOptions = {
 					status: { type: 'string', enum: ['success'] },
 					data: {
 						type: 'object',
-						required: ['userId', 'username', 'avatarUrl', 'status'],
+						required: ['userId', 'username', 'status', 'createdAt', 'updatedAt'],
 						additionalProperties: false,
 						properties: {
 							userId: { type: 'string', format: 'uuid' },
 							username: { type: 'string' },
-							avatarUrl: { type: 'string' },
-							status: { type: 'string' }
+							displayName: { type: 'string', nullable: true },
+							bio: { type: 'string', nullable: true },
+							avatarUrl: { type: 'string', nullable: true },
+							status: { type: 'string' },
+							createdAt: { type: 'string' },
+							updatedAt: { type: 'string' },
 						}
 
 					},

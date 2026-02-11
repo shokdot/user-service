@@ -16,7 +16,9 @@ How a **React/Next.js** frontend should use the User Service: flows, requests, a
 **Purpose:** Load and update the logged-in user's profile.
 
 **Get:** `GET /api/v1/users/me`  
-**Update:** `PATCH /api/v1/users/me` with body `{ "username": "...", "avatarUrl": "..." }` (at least one field).
+**Update:** `PATCH /api/v1/users/me` with body `{ "username": "...", "displayName": "...", "bio": "...", "avatarUrl": "..." }` (at least one field).
+
+**Response fields:** `userId`, `username`, `displayName` (nullable), `bio` (nullable), `avatarUrl` (nullable), `createdAt`, `updatedAt`.
 
 **Flow:** On app load (after auth), call GET /me to show profile. On settings save, call PATCH /me and update UI with response data.
 
@@ -59,10 +61,17 @@ How a **React/Next.js** frontend should use the User Service: flows, requests, a
 
 **Purpose:** List friends, send/accept/delete friend requests.
 
-**List:** `GET /api/v1/users/me/friends?status=accepted` (or `pending`)  
+**List:** `GET /api/v1/users/me/friends?status=accepted` (or `pending`, or omit for all)  
 **Send request:** `POST /api/v1/users/me/friends/:username`  
 **Accept:** `PATCH /api/v1/users/me/friends/:username`  
 **Delete/remove:** `DELETE /api/v1/users/me/friends/:username`
+
+**Response fields per friend:**
+- `userId`, `username`, `avatarUrl` — user identity
+- `onlineStatus` — current presence (`ONLINE`, `OFFLINE`, `IN_GAME`)
+- `status` — friendship status (`pending` or `accepted`)
+- `direction` — only for pending: `incoming` or `outgoing`
+- `createdAt` — ISO timestamp of the friendship/request creation
 
 **Flow:** Friends list page: GET /me/friends. Send request from search/profile: POST with username. Accept/decline from pending list: PATCH or DELETE. Use same token; on 401 refresh and retry.
 
@@ -85,7 +94,7 @@ How a **React/Next.js** frontend should use the User Service: flows, requests, a
 | User action        | Request                               | Then              |
 |--------------------|----------------------------------------|-------------------|
 | Load my profile    | `GET /users/me`                        | Render profile    |
-| Update profile     | `PATCH /users/me` (username/avatarUrl)| Update UI         |
+| Update profile     | `PATCH /users/me` (username/displayName/bio/avatarUrl)| Update UI         |
 | View user          | `GET /users/:userId` or `/username/:username` | Render profile |
 | Search users       | `GET /users/search?username=`         | Render results    |
 | User status        | `GET /users/status/:userId`           | Show status       |

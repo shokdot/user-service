@@ -12,19 +12,27 @@ const listFriends = async (userId: string, status?: string) => {
 		},
 		select: {
 			status: true,
-			sender: { select: { userId: true, username: true } },
-			receiver: { select: { userId: true, username: true } },
+			createdAt: true,
+			sender: { select: { userId: true, username: true, avatarUrl: true, status: true } },
+			receiver: { select: { userId: true, username: true, avatarUrl: true, status: true } },
 			senderUserId: true,
 			receiverUserId: true
 		}
 	});
 
 	const friends = friendships.map(f => {
-		const friend = f.senderUserId === userId ? f.receiver : f.sender;
+		const isSender = f.senderUserId === userId;
+		const friend = isSender ? f.receiver : f.sender;
 		return {
 			userId: friend.userId,
 			username: friend.username,
-			status: f.status
+			avatarUrl: friend.avatarUrl,
+			onlineStatus: friend.status,
+			status: f.status,
+			...(f.status === 'pending' && {
+				direction: isSender ? 'outgoing' as const : 'incoming' as const
+			}),
+			createdAt: f.createdAt.toISOString()
 		};
 	});
 

@@ -10,8 +10,12 @@ const getUserByName = async (userId: string, username: string) => {
 		select: {
 			userId: true,
 			username: true,
+			displayName: true,
+			bio: true,
 			avatarUrl: true,
-			status: true
+			status: true,
+			createdAt: true,
+			updatedAt: true,
 		}
 	});
 

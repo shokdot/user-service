@@ -37,7 +37,9 @@ Get user public info by user ID. **Auth: Bearer**
   "data": {
     "userId": "uuid",
     "username": "string",
-    "avatarUrl": "string",
+    "displayName": "string | null",
+    "bio": "string | null",
+    "avatarUrl": "string | null",
     "createdAt": "string",
     "updatedAt": "string"
   },
@@ -63,7 +65,24 @@ Get user by username. **Auth: Bearer**
 
 **Params:** `username`
 
-**Success (200):** Same shape as `GET /:userId` (userId, username, avatarUrl, createdAt, updatedAt).
+**Success (200):**
+
+```json
+{
+  "status": "success",
+  "data": {
+    "userId": "uuid",
+    "username": "string",
+    "displayName": "string | null",
+    "bio": "string | null",
+    "avatarUrl": "string | null",
+    "status": "string",
+    "createdAt": "string",
+    "updatedAt": "string"
+  },
+  "message": "string"
+}
+```
 
 ---
 
@@ -112,7 +131,9 @@ Get current user profile. **Auth: Bearer**
   "data": {
     "userId": "uuid",
     "username": "string",
-    "avatarUrl": "string",
+    "displayName": "string | null",
+    "bio": "string | null",
+    "avatarUrl": "string | null",
     "createdAt": "string",
     "updatedAt": "string"
   },
@@ -124,14 +145,16 @@ Get current user profile. **Auth: Bearer**
 
 ### PATCH `/me`
 
-Update current user (username, avatarUrl). **Auth: Bearer**
+Update current user profile. **Auth: Bearer**
 
 **Body:** At least one of:
 
-| Field     | Type   | Required | Description   |
-|-----------|--------|----------|---------------|
-| username  | string | No       | New username  |
-| avatarUrl | string | No       | New avatar URL |
+| Field       | Type   | Required | Description                  |
+|-------------|--------|----------|------------------------------|
+| username    | string | No       | New username                 |
+| displayName | string | No       | Display name (max 50 chars)  |
+| bio         | string | No       | Bio text (max 160 chars)     |
+| avatarUrl   | string | No       | New avatar URL               |
 
 **Success (200):** Same shape as GET /me (updated data).
 
@@ -172,13 +195,26 @@ List friends (pending or accepted). **Auth: Bearer**
   "status": "success",
   "data": {
     "friends": [
-      { "userId": "uuid", "username": "string", "status": "pending|accepted" }
+      {
+        "userId": "uuid",
+        "username": "string",
+        "avatarUrl": "string | null",
+        "onlineStatus": "ONLINE | OFFLINE | IN_GAME",
+        "status": "pending | accepted",
+        "direction": "incoming | outgoing (only for pending)",
+        "createdAt": "ISO 8601 string"
+      }
     ],
     "count": number
   },
   "message": "string"
 }
 ```
+
+**Notes:**
+- `onlineStatus` is the user's current presence (from UserProfile).
+- `direction` is only present when `status` is `"pending"`: `"outgoing"` means the current user sent the request, `"incoming"` means the other user sent it.
+- `createdAt` is the timestamp when the friendship/request was created.
 
 ---
 

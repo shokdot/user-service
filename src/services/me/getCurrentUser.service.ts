@@ -7,6 +7,8 @@ const getCurrentUser = async (userId: string) => {
 		select: {
 			userId: true,
 			username: true,
+			displayName: true,
+			bio: true,
 			avatarUrl: true,
 			createdAt: true,
 			updatedAt: true

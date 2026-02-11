@@ -10,6 +10,8 @@ model UserProfile {
     id               String       @id @default(uuid())
     userId           String       @unique
     username         String       @unique
+    displayName      String?
+    bio              String?
     avatarUrl        String?
     status           String       @default("OFFLINE")
     createdAt        DateTime     @default(now())

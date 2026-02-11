@@ -5,7 +5,7 @@ const listFriendsSchema: RouteShorthandOptions = {
 	preHandler: [authenticate],
 	schema:
 	{
-		description: "Delete accepted or pending friend request.",
+		description: "List friends with optional status filter.",
 		tags: ["Friends"],
 		security: [{ bearerAuth: [] }],
 		querystring: {
@@ -32,13 +32,20 @@ const listFriendsSchema: RouteShorthandOptions = {
 						additionalProperties: false,
 						properties: {
 							friends: {
-								type: 'object',
-								required: ['userId', 'username', 'status'],
-								additionalProperties: false,
-								properties: {
-									userId: { type: 'string', format: 'uuid' },
-									username: { type: 'string' },
-									status: { type: 'string', enum: ['pending', 'accepted'] }
+								type: 'array',
+								items: {
+									type: 'object',
+									required: ['userId', 'username', 'status', 'createdAt'],
+									additionalProperties: false,
+									properties: {
+										userId: { type: 'string', format: 'uuid' },
+										username: { type: 'string' },
+										avatarUrl: { type: 'string', nullable: true },
+										onlineStatus: { type: 'string' },
+										status: { type: 'string', enum: ['pending', 'accepted'] },
+										direction: { type: 'string', enum: ['incoming', 'outgoing'] },
+										createdAt: { type: 'string' }
+									}
 								}
 							},
 							count: { type: 'number' }
