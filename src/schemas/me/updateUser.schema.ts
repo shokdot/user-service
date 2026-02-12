@@ -16,6 +16,7 @@ const updateUserSchema: RouteShorthandOptions = {
 				bio: { type: "string", maxLength: 160 },
 				avatarUrl: { type: "string" },
 				theme: { type: "string", enum: ["dark", "light"] },
+				paddleColor: { type: "string", pattern: "^#[0-9a-fA-F]{6}$" },
 			},
 			additionalProperties: false,
 			minProperties: 1,
@@ -38,6 +39,7 @@ const updateUserSchema: RouteShorthandOptions = {
 							bio: { type: 'string', nullable: true },
 							avatarUrl: { type: 'string', nullable: true },
 							theme: { type: 'string', enum: ['dark', 'light'] },
+							paddleColor: { type: 'string' },
 							createdAt: { type: 'string' },
 							updatedAt: { type: 'string' },
 						}

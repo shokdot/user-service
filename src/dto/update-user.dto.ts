@@ -3,4 +3,5 @@ export interface updateUserDTO {
 	displayName?: string;
 	bio?: string;
 	theme?: string;
+	paddleColor?: string;
 }

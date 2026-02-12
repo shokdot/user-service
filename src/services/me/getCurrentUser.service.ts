@@ -11,6 +11,7 @@ const getCurrentUser = async (userId: string) => {
 			bio: true,
 			avatarUrl: true,
 			theme: true,
+			paddleColor: true,
 			createdAt: true,
 			updatedAt: true
 		}

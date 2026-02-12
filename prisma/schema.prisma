@@ -14,6 +14,7 @@ model UserProfile {
     bio              String?
     avatarUrl        String?
     theme            String       @default("dark")
+    paddleColor      String       @default("#00f0ff")
     status           String       @default("OFFLINE")
     createdAt        DateTime     @default(now())
     updatedAt        DateTime     @updatedAt
