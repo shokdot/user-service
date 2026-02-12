@@ -1,5 +1,6 @@
 import prisma from "src/utils/prismaClient.js";
 import { checkBlocked, AppError } from "@core/index.js";
+import { sendFriendRequestNotification } from "src/services/notification.service.js";
 
 const sendRequest = async (senderId: string, receiverUsername: string) => {
 
@@ -21,9 +22,13 @@ const sendRequest = async (senderId: string, receiverUsername: string) => {
 	});
 	if (existing) throw new AppError('ALREADY_SENT');
 
+	const sender = await prisma.userProfile.findUnique({ where: { userId: senderId } });
+
 	await prisma.friendship.create({
 		data: { senderUserId: senderId, receiverUserId: receiver.userId }
 	});
+
+	sendFriendRequestNotification(receiver.userId, sender?.username ?? 'Someone');
 
 };
 

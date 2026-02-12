@@ -1,5 +1,6 @@
 import { AppError } from "@core/index.js";
 import prisma from "src/utils/prismaClient.js";
+import { sendFriendAcceptedNotification } from "src/services/notification.service.js";
 
 const acceptRequest = async (receiverId: string, senderUsername: string) => {
 
@@ -25,6 +26,8 @@ const acceptRequest = async (receiverId: string, senderUsername: string) => {
 		where: { id: friendship.id },
 		data: { status: 'accepted' }
 	});
+
+	sendFriendAcceptedNotification(sender.userId, receiver.username);
 
 };
 
