@@ -15,6 +15,7 @@ const updateUserSchema: RouteShorthandOptions = {
 				displayName: { type: "string", maxLength: 50 },
 				bio: { type: "string", maxLength: 160 },
 				avatarUrl: { type: "string" },
+				theme: { type: "string", enum: ["dark", "light"] },
 			},
 			additionalProperties: false,
 			minProperties: 1,
@@ -36,6 +37,7 @@ const updateUserSchema: RouteShorthandOptions = {
 							displayName: { type: 'string', nullable: true },
 							bio: { type: 'string', nullable: true },
 							avatarUrl: { type: 'string', nullable: true },
+							theme: { type: 'string', enum: ['dark', 'light'] },
 							createdAt: { type: 'string' },
 							updatedAt: { type: 'string' },
 						}

@@ -34,6 +34,10 @@ const getBlockedSchema: RouteShorthandOptions = {
 										},
 										username: {
 											type: 'string'
+										},
+										avatarUrl: {
+											type: 'string',
+											nullable: true
 										}
 									}
 								}

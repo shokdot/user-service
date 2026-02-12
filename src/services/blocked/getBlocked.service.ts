@@ -9,6 +9,7 @@ const getBlocked = async (userId: string) => {
 				select: {
 					userId: true,
 					username: true,
+					avatarUrl: true,
 				},
 			},
 		},

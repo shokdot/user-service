@@ -25,6 +25,7 @@ const getCurrentUserSchema: RouteShorthandOptions = {
 							displayName: { type: 'string', nullable: true },
 							bio: { type: 'string', nullable: true },
 							avatarUrl: { type: 'string', nullable: true },
+							theme: { type: 'string', enum: ['dark', 'light'] },
 							createdAt: { type: 'string' },
 							updatedAt: { type: 'string' },
 						}
